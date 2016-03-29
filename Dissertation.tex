@@ -1,0 +1,239 @@
+\documentclass[12pt,oneside]{report}
+\usepackage{amssymb,amsmath,amsthm,OU-Dissertation}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{rotating}
+\usepackage[printonlyused,withpage]{acronym}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+
+% Use one or the other.
+\usepackage{natbib}
+%\usepackage{cite}
+
+%\usepackage{hyperref}
+\usepackage
+[
+pdftex,
+bookmarks,
+pdftitle={Sensitivity Analysis of Code Carrier Coherence in the GPS Satellite
+Fleet to Reduce Overbounding in WAAS to Increase Availability While Maintaining Integrity},
+pdfauthor={Chad S. Sherrell},
+pdfsubject={University of Oklahoma Ph.D. Dissertation},
+pdfkeywords={Chad, Sherrell, Dissertation, WAAS},
+hypertexnames=false,
+colorlinks=true,
+linkcolor=blue,
+citecolor=blue,
+urlcolor=blue
+]
+{hyperref}
+
+\usepackage[procnames]{listings}
+
+%\usepackage{multirow}
+%\usepackage{subfigure}
+%\usepackage{graphicx}
+
+%\ifx\pdfoutput\undefined
+%\usepackage{graphicx}
+%\else
+%\usepackage[pdftex]{graphicx}
+%\fi
+
+%\onehalfspacing    % one & half spaced texts
+%\singlespacequote  % single spaced quotes
+
+%If the dissertation has a chapter that consists
+%of 10 or more sections, a section that consists
+%of 10 or more subsections, etc., uncomment the
+% following line:
+% \longtocentry
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TITLE
+\title{Sensitivity Analysis of Code Carrier Coherence in the GPS Satellite
+Fleet to Reduce Overbounding in WAAS to Increase Availability While Maintaining
+Integrity}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% SUPERVISORS
+%%% One Supervisor
+%\supervisor{James J. Sluss, Jr.}
+
+%%% Two Supervisors
+%\supervisor[James J. Sluss, Jr.]
+%{John W. Dyer}
+
+%%% Three Supervisors
+\supervisor[James J. Sluss, Jr.]
+[John W. Dyer]
+{John E. Fagan}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\committeesize{5}
+
+% FULL NAME; Combination of Upper/Lowercases
+\author{Chad S. Sherrell}
+
+% Default is B.S., M.S. If you have previous degree(s)
+% other than them, uncomment the following line
+% and enter your degree name(s).
+%\previousdegrees{B.S.}
+
+% The default is `Doctor of Philosophy' and `Ph.\ D.'
+% If your target degree is other than the above,
+% uncomment the following and enter your degree name.
+%\degree{Master of Science}
+%\degreeabbr{M.S.}
+
+%% Can seem to make this work. -CSS
+%\address{2311 North Los Robles Avenue}
+%\\
+%Apt 4A\\
+%Pasadena, California\ \ 91104\\
+%U.S.A.}
+
+%\doctype{thesis}   % dissertation or thesis
+                    % Dissertation is the default.
+%\typeist{Mary K. Peterson} % if someone else typesets
+                            % Author's name is the default.
+
+% The system reasonably guesses the graduation
+% year and month by looking at the system clock.
+% The graduation month is either May, August, or December.
+\graduationmonth{May} % Either May, August, or December
+\graduationyear{2016} % 4 digit, not 2 digit
+
+% \makeatletter
+% \newcommand{\acx}{\protect\@acx}%
+% \newcommand{\@acx}[1]{%
+  % \ifAC@dua
+   % \acl{#1}%
+  % \else
+   % \expandafter\ifx\csname ac@#1\endcsname\AC@used
+      % \acs{#1}%
+   % \else
+      % \acl{#1}%
+   % \fi
+  % \fi
+% }
+% \makeatother
+
+\begin{document}
+
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,113}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+\definecolor{blue}{RGB}{0,0,255}
+
+\setlength{\unitlength}{1.00 in}
+
+% Title Page - Required
+\titlepage
+
+% Signature Page - Required
+\signaturepage
+
+% Copyright Page - Required
+\copyrightpage
+
+% Dedication - Optional
+% No page numbering.
+\newpage
+%\mbox{\ }
+%\newpage
+\input{Dedication}
+\thispagestyle{empty}
+
+% Reset page number to 4 in case there was a Dedication section should not have page
+% Numbering
+\setcounter{page}{4}
+
+%\newpage
+%\thispagestyle{empty}
+%\mbox{\ }
+
+% Acknowledgements - Optional
+\newpage
+\acknowledgements     % NOT: \begin{ack...} ... \end{ack...}
+\input{Acknowledgements}
+
+% Table of Contents - Required
+\tableofcontents
+
+% List of Tables
+% Required if you have tables
+\listoftables
+
+% List of Figures
+% Required if you have figures
+\listoffigures
+
+\acronyms
+\input{../acronyms}
+
+% Abstract - Optional
+\abstract  % NOT: \begin{abstract} ... \end{abstract}
+\input{Abstract}
+%\input text/NoCite
+
+% The Text of the Dissertation - Required
+% Introduction
+\newpage
+\thispagestyle{empty}
+\input{Chapter1}
+\newpage
+
+\newpage
+\thispagestyle{empty}
+\input{Chapter2}
+\newpage
+
+\newpage
+\thispagestyle{empty}
+\input{Chapter3}
+\newpage
+
+\newpage
+\thispagestyle{empty}
+\input{Chapter4}
+\newpage
+
+\newpage
+\thispagestyle{empty}
+\input{Chapter5}
+\newpage
+
+% The University of Oklahoma (OU) requires single spacing for the bibliography
+\singlespacing
+
+% Style
+%\bibliographystyle{IEEEtranS}
+%% Bibliography or References - Required
+%% Bibliography may contain multiple Bibtex files
+%\bibliography{LiteratureReview,References}
+\bibliographystyle{abbrv}
+\bibliography{References}
+
+\doublespacing % restore double spacing for the appendices
+
+% Appendices - Optional
+%\appendix   %if only one appendix chapter
+\appendices % for multiple appendix chapters
+
+\newpage
+\thispagestyle{empty}
+\input{Appendix-DO-178B}
+
+\newpage
+\thispagestyle{empty}
+\input{Appendix-Glossary}
+
+\end{document}

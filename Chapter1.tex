@@ -1,0 +1,31 @@
+\chapter{Introduction}
+\label{chapter:introduction}
+Things I need.
+
+PRN SVN Mapping for the last five years.
+Assign to Hoang.
+
+
+First sentence what this dissertation has achieved.
+30,000ft view of WAAS and the Problem. Pros and Cons of WAAS and the specific area I am looking at.
+
+Paragraph 1: What is the problem?
+
+Not more than 3-4 sentences telling the reader what the problem is, in as simple English as possible
+
+Paragraph 2: Why is the problem hard?
+
+What has eluded us in solving it? What does the literature say about this problem? What are the obstacles/challenges? Why is it non-trivial?
+
+Paragraph 3: What is your approach/result to solving this problem?
+
+How come you solved it? Think of this as your “startling” or “sit up and take notice” claims that your thesis will plan to prove/demonstrate
+
+Paragraph 4: What is the consequence of your approach?
+
+So, now that you’ve made me sit up and take notice, what is the impact? What does your approach/result enable?
+~\\
+
+\ac{waas} has $\approx$2000 \ac{osp} values that define minimum and maximum limits, action thresholds, and timeouts. The parameters are use to control logic throughout the \ac{waas} system. There is always a balance between usability and safety.  For the \ac{faa} these are in the terms availability/continuity for usability and integrity for safety.  If the system remains off then this is the highest level of integrity, meaning if the user does not use the \ac{gps} then they are safe against all \ac{gps} related threats.  This would not make a practical system, so it led the engineers developing the \ac{waas} application to use values that would allow the system to be usable, but were significantly conservative to protect the user against GPS related threats.  At the inception of \ac{waas} there was insufficient empirical data to appropriately set many of the integrity bounding limits.  At least one value was stated as being grossly overbounded and that the empirical evidence to set it correctly would require many years of data.  The \ac{nase} organization has now accumulated the several years of data, but there is currently no analytical system in place to process this volume of data so that updated \ac{osp} values can be set.
+
+Currently in this research effort the beginnings of a system have been created that can be used as an analytics platform for getting the varying data formats and elements into a common format where meaningful analysis can be performed.  Every component in the system is purposely selected or designed to take data from its rawest form and process it into a format that can be utilized, manipulated and assessed. As of this writing the system can process NovAtel GUST, G-II and G-III \ac{gps} receiver binary log files. The software can identify receiver log messages, \ac{crc} check that the messages is valid and break each message type into its constituent elements for storing and further analysis. This has been fully demonstrated end to end on a \ac{geo} Satellite monitoring system in development. This system is currently monitoring one \ac{geo} satellite at one \ac{gus} site but will be expanded to four \ac{geo}s at 8 \ac{gus} sites in the near future. It process data from the WAAS application receiver and a second receiver used for fault isolation. The system is logging $\approx$1213 data elements per second from only two message types and this number will grow as more message types are recorded to the database.

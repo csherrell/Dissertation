@@ -1,0 +1,231 @@
+\chapter{Methodology}
+\label{ch:methodology}
+\section{Solution Stack}
+Reproducibility is one of the main principles of the scientific method and within the \ac{faa} having tools and processes that can reliably reproduce results is paramount for a safety of life application.  In this section the solution stack will be introduced. And from the ground up the applications selected and process implemented are to ensure results can be reproduced by those that have access to the data store.
+
+A solution stack or software stack is a set of software subsystems or components needed to create a complete platform such that no additional software is needed to support applications. Applications are said to "run on" or "run on top of" the resulting platform.
+
+This section covers the following components of the solution stack: virtualization platform, operating system, orchestration, web server, databases, programming language and analytics environment. Further effort is required for a few remaining components of the final solution stack, mostly needed for scaling. The remaining components are orchestration, job scheduling, workload management and horizontal scaling.
+
+\subsection{Virtualization}
+Server scaling can come in two varieties: horizontal and vertical.  Horizontal scaling is adding more server nodes to an application to handle the additional workload demand, while vertical scaling or scaling up is to add more resources to one node.  This solution stack uses virtual machines to scale horizontally; to handle an increase in workload, as well as provide high availability, additional virtual machines can be provisioned and when the demand subsides the virtual machines can be deallocated.  The use of virtual machines can streamline development since they can repeatedly be created and destroyed to test out configurations.
+
+\subsubsection{Vagrant with VirtualBox Provider}
+The first component of the solution stack is \emph{Vagrant}. Its primary use is to create and configure virtual development environments.  It also helps manage those virtual environments with a few very simple commands. The advantage of using this product is that is can be used by anyone on any platform that Vagrant supports to bring up an identical working environment. Through a Vagrant configuration file it can even constrain the virtual image to a specific version or versions of a image. It also has the capability to automatically install all the additional required applications in the solution stack so that when the system boots up the first time all required software has been installed and configurations have been completed.
+
+This solution stack currently uses Oracle VirtualBox, but it is compatible with other virtualization software like VMware and KVM. The final virtual machines will run on VMWare in a blade cluster.
+
+\subsubsection{Vagrant Lifecycle Management}
+
+\paragraph{Command: {\color{red} vagrant init [box-name] [box-url]}} ~\\
+By default Vagrant will use the containing directory of the Vagrant initialization file, called Vagrantfile, for the virtual machine name. To get started with Vagrant, first create a new directory and change into that directory.
+\begin{lstlisting}
+mkdir WAASAnalyticsPlatform && cd WAASAnalyticsPlatform
+\end{lstlisting}
+
+The following commands initialize the current directory to be a Vagrant environment by creating the initial Vagrantfile. The Vagrant virtual image is known as a box. If a first argument is given, it configure the Vagrantfile for that type of box.
+
+\begin{lstlisting}
+# Example: Create an Ubuntu 14.04 virtual machine.
+vagrant init ubuntu/trusty64
+# Example: Create a CoreOS virtual machine.
+# Exit the WAASAnalyticsPlatform folder
+cd ..
+# Checkout a CoreOS Vagrantfile from github.
+git clone https://github.com/coreos/coreos-vagrant/
+# This will create a coreos-vagrant directory in the
+# current directory. Rename this directory to the name
+# that the virtual machine will be known as.
+mv coreos-vagrant CoreOS-Node01
+\end{lstlisting}
+
+\paragraph{Note: Unless otherwise stated the following commands must be ran in the folder containing the Vagrantfile and the command will apply to that environment.}
+
+\paragraph{Command: {\color{red} vagrant up}} ~\\
+This command creates and configures guest machines according to your Vagrantfile.
+
+This is the single most important command in Vagrant, since it is how any Vagrant machine is created. Anyone using Vagrant must use this command on a day-to-day basis.
+
+\paragraph{Command: {\color{red} vagrant halt}} ~\\
+This command shuts down the running machine Vagrant is managing.
+
+Vagrant will first attempt to gracefully shut down the machine by running the guest OS shutdown mechanism. If this fails, or if the -{}-force flag is specified, Vagrant will effectively just shut off power to the machine.
+
+\paragraph{Command: {\color{red} vagrant ssh}} ~\\
+This will SSH into a running Vagrant machine and give you access to a shell.
+
+If a -{}- (two hyphens) are found on the command line, any arguments after this are passed directly into the ssh executable. This allows you to pass any arbitrary commands to do things such as reverse tunneling down into the ssh program.
+
+\paragraph{Command: {\color{red} vagrant status}} ~\\
+This will tell you the state of the machines Vagrant is managing.
+
+It is quite easy, especially once you get comfortable with Vagrant, to forget whether your Vagrant machine is running, suspended, not created, etc. This command tells you the state of the underlying guest machine.
+
+\paragraph{Command: {\color{red} vagrant destroy}} ~\\
+This command stops the running machine Vagrant is managing and destroys all resources that were created during the machine creation process. After running this command, your computer should be left at a clean state, as if you never created the guest machine in the first place.
+
+\paragraph{Command: {\color{red} vagrant global-status} and Using IDs} ~\\
+
+To interact with any of the machines, you can go to
+the directory with the Vagrantfile and run any of the preceding vagrant commands. Vagrant also provides a way to interact with the virtual machines without having to change into the directory. The global-status is the command that lists information and status about all known Vagrant environments
+on the host machine.  The first column is the ID for the machine and the preceding commands all take an ID as an ending argument.
+\lstset{basicstyle=\tiny}
+\begin{lstlisting}[language=bash]
+vagrant global-status
+id       name    provider   state    directory
+------------------------------------------------------------------------------------------------
+26d0e63  default virtualbox poweroff /home/csherrell/Vagrant/v-Ubuntu-14.04-Bootstrap
+d6e2bc0  default virtualbox poweroff /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-02
+fc44416  default virtualbox poweroff /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-01
+77c195d  default virtualbox poweroff /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-Cassandra-01
+\end{lstlisting}
+
+
+This shows that all the virtual machines are off. To start the first virtual machines run the following command.
+
+\begin{lstlisting}[language=bash]
+vagrant up 26d0e63
+...
+vagrant global-status
+id       name    provider   state    directory
+------------------------------------------------------------------------------------------------
+26d0e63  default virtualbox running  /home/csherrell/Vagrant/v-Ubuntu-14.04-Bootstrap
+d6e2bc0  default virtualbox poweroff /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-02
+fc44416  default virtualbox poweroff /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-01
+77c195d  default virtualbox poweroff /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-Cassandra-01
+\end{lstlisting}
+
+To start the remaining virutal machines run the following command.
+\begin{lstlisting}[language=bash]
+vagrant up d6e2bc0 fc44416 77c195d
+...
+vagrant global-status
+id       name    provider   state   directory
+-----------------------------------------------------------------------------------------------
+26d0e63  default virtualbox running /home/csherrell/Vagrant/v-Ubuntu-14.04-Bootstrap
+d6e2bc0  default virtualbox running /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-02
+fc44416  default virtualbox running /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-01
+77c195d  default virtualbox running /home/csherrell/Vagrant/v-Ubuntu-14.04-Rabbit-Cassandra-01
+\end{lstlisting}
+
+\lstset{basicstyle=\normalfont}
+
+\noindent
+Vagrant Website:~\\
+\url{https://www.vagrantup.com/}
+
+\subsection{Software Development}
+\subsubsection{Python 3}
+Python version 3 is being used for this development effort. The Python programming language guidance is ``if you can do exactly what you want with Python 3.x" then you should use it. During a previous phase of development a NovAtel binary message parser was written in Python 2.7 to parse log messages. This plus some other support software written in Python 2.7 was converted to version 3. The new parsing code is completely object oriented and the new classes for handling NovAtel messages where all written in Python 3 and there were no major issues.  The only issue that has reoccurred was in integrating the message parsing functionality developed in Python 2.7 into the new classes. Python 3 strings are Unicode by default and now there is clean Unicode/bytes separation.  For the average use case this has little to no affect, but when the purpose of the application is to read in a binary data stream and manipulate bytes this has a significant impact.  In Python 2.7 strings and bytearray objects could be use interchangeably. Under Python 3 this is no longer the case. Python 3 will throw a run time exception if a string is cast to a bytearray or vica versa. In Python 3 to convert bytes or bytearray objects to ASCII strings the decode method must be called.
+
+\lstset{basicstyle=\tiny}
+\begin{lstlisting}[language=Python]
+# Hello World! in Hex
+input_buffer = bytearray.fromhex('48656c6c6f20576f726c6421')
+ascii_string = 'Test: '
+# Append the bytearray to the string
+ascii_string += input_buffer[0:]
+\end{lstlisting}
+\begin{lstlisting}[language=bash]
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-17-f84d039df76b> in <module>()
+----> 1 ascii_string += input_buffer[0:]
+
+TypeError: Can't convert 'bytearray' object to str implicitly
+\end{lstlisting}
+\begin{lstlisting}[language=Python]
+# Using the bytearray.decode() method
+ascii_string += input_buffer[0:].decode('ascii')
+print(ascii_string)
+Test: Hello World!
+\end{lstlisting}
+\lstset{basicstyle=\normalfont}
+
+This analysis platform uses a producer/consumer architecture. To publish data to a queuing middleware used by the downstream consumers the data must first be serialized. Serialization is the conversion of data structures to a steam of bits to be saved to disk or transported across a communication medium. Under Python 2.7 there is a built-in Python module called pickle that is used for serialization but it was not well optimized, so the msgpack module was use for initial testing. As more involved testing was performed it was discovered that the msgpack module could not serialize all the data elements.  Luckily this happened about the same time as the transition to Python 3.  The msgpack module has deficiencies and further it has not yet been ported to Python 3.  Under Python 2.7 there was an optimized C implementation of the pickle module and under Python 3 the built-in pickle module is the C optimized implementation, so msgpack was dropped all together and pickle was used as the serialization service throughout the software.
+
+\noindent
+\\Python Website:\\
+\url{https://www.python.org}\\
+\url{https://wiki.python.org/moin/Python2orPython3}
+
+\subsubsection{Messaging / Middleware}
+Middleware is the software that connects software components or enterprise applications. Middleware is the software layer that lies between the operating system and the applications on each side of a distributed computer network. Typically, it supports complex, distributed business software applications.
+
+This analysis platform uses a distributed producer consumer architecture.  Currently this is built upon the RabbitMQ middleware, but the decoupled software architecture will allow for one middleware to be swapped for another or have the ability to use multiple at once. ZeroMQ is another middleware that will be evaluated in the future as other entities in the FAA use it.
+\paragraph{RabbitMQ} ~\\
+RabbitMQ is an implementation of the \ac{amqp}. \ac{amqp} was designed by JPMorgan Chase and is used extensively in the financial industry.  Multiple implementation of \ac{amqp} have been created, but RabbitMQ is one of the more prestigious implementation. It is used throughout the VMware product line and also used in OpenStack for messaging. It supports several different type of exchanges: Direct, Fanout, Topic, and Headers; and can support persistent queues. The Python library that supports the interaction with RabbitMQ service is called Pika and will be covered later.
+
+\paragraph{ZeroMQ} ~\\
+ZeroMQ is a high-performance asynchronous messaging library, aimed at use in distributed or concurrent applications. It provides a message queue, but unlike message-oriented middleware, like RabbitMQ, ZeroMQ can run without a dedicated message broker. This product will be evaluated in the future and could augment the messaging capabilities in this application. The \ac{sog} in the \ac{faa} use ZeroMQ so some functionality may be required to be able to store and access data in their database.
+
+\subsection{Databases and Storage Formats}
+Several databases and storage formats have already been and will be evaluated during this research effort.  Databases serve a couple of different purposes. First and foremost they store and retrieve data.  The advantage a database has over comma separated \ac{ascii} files is that the data comes in as binary and is stored as binary there by avoiding precision being lost when floating point values are converted to \ac{ascii}.  Another advantage is that databases are useful for performing data analysis.  In the past databases were used primarily to do \ac{oltp}, basically data entry and retrieval transaction processing and run some standard reports. Today new databases support \ac{olap} which provides the capability for complex calculations, trend analysis, and sophisticated data modeling. This application like many modern applications will use polyglot persistence that is to say it will use the best persistence mechanism for the application's needs and that will probably utilize multiple types of storage engines. Beyond the ability to store and analyze data is the requirement to share data. Doing an analysis is one thing, but due to the integrity requirements of a safety of life system other organizations will be evaluating the results, so the input data, final solution and possibly some intermediate values should be save in such a way as to be able to hand over for independent evaluation.
+
+\paragraph{Graphite's Whisper Database} ~\\
+Whisper is a file-based time-series database format for Graphite. Graphite is a web analytics application for time-series data. The upside is that it has good community support and designed specificity for time-series data which is the bulk of the data being used in this research. The downside is that it only support one second resolution. This is acceptable for all the ac{waas} data that will initially be evaluated. A more advanced time series database may need to be assessed as additional sensors are incorporated that operate faster than 1Hz. Some of the temperature sensors and accelerometers that are currently being evaluated operate at 50Hz.
+
+\noindent
+\\Graphite Website:\\
+\url{http://graphite.readthedocs.org/en/latest/}\\
+\url{https://github.com/graphite-project/whisper}
+
+{\Huge{{\color{red}{~\\Proofread Completed}}}}
+
+\paragraph{PostgreSQL} ~\\
+PostgreSQL is a relational database.  Relational databases are probably the most widespread of all database types, but their problem is that they are normally ran on one server and do not scale horizontally, but vertically. Typically this leads to a single point of failure, but there are some system administration paradigms that can support high availability. Also, there is significant overhead for indexing large datasets.  Because of there use in data warehousing many of these issues do have solutions or workarounds. Relational databases have been the standard for well over 40 years, so they have there place.  This application stack will use a relations database to store small datasets and will be used extensively to development models.
+
+\paragraph{SQLite} ~\\
+SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional relational database engine. The code for SQLite is in the public domain and is thus free for use for any purpose, commercial or private. SQLite is the most widely deployed database in the world. The data is contained in a single file so this would be a solution for sharing data amongst the various people wanting to use the data.
+
+\paragraph{HDF5} ~\\
+\ac{hdf} version 5 is not a database but a unique technology suite that makes possible the management of extremely large and complex data collections. The HDF5 technology suite includes: A versatile data model that can represent very complex data objects and a wide variety of metadata. The data is structured and remains in a binary format.  Matlab uses this a the base format for its MAT-File starting in R2006b. This file format is designed for very large datasets and since the dataset will be contained in one file it is being strongly considered as the format for sharing data with other organizations.
+
+\paragraph{Cassandra} ~\\
+Cassandra is a distributed database produces by Apache designed to handle large amounts of data across many server nodes. It is a big data database.
+
+
+\iffalse
+\subsection{Analytics}
+\subsection{Application Program Interface}
+\subsection{Apache Spark}
+
+
+\subsubsection{Libraries}
+\paragraph{Python Pika} ~\\
+\paragraph{Python Sphinx} ~\\
+\paragraph{Python HDF5} ~\\
+
+\subsubsection{Orchestration}
+\subsubsection{Jenkins}
+\subsubsection{Juju/Puppet/Chef}
+\subsubsection{Docker}
+
+\section{Implementation}
+\subsection{Versioning}
+A version number is associated with each component of this software stack. Some of the software is \ac{cots} while other software has been custon written for this effort.
+
+\begin{itemize}
+	\item Operating System
+	\item \ac{cots}
+	\begin{itemize}
+		\item MATLAB
+	\end{itemize}
+	\item Libraries
+	\begin{itemize}
+		\item Pika
+	\end{itemize}
+	\item Databases
+	\begin{itemize}
+		\item SQLite
+		\item PostgreSQL
+		\item Cassandra
+	\end{itemize}
+	\item Applications
+	\begin{itemize}
+		\item RabbitMQ
+		\item Graphite
+	\end{itemize}
+\end{itemize}
+
+\fi
