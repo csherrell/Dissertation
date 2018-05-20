@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 set -x
-rm -f OUDissertationTemplate.aux
-rm -f OUDissertationTemplate.bbl
-rm -f OUDissertationTemplate.blg
-rm -f OUDissertationTemplate.lof
-rm -f OUDissertationTemplate.log
-rm -f OUDissertationTemplate.lot
-rm -f OUDissertationTemplate.out
-rm -f OUDissertationTemplate.toc
+rm -f Dissertation.aux
+rm -f Dissertation.bbl
+rm -f Dissertation.blg
+rm -f Dissertation.lof
+rm -f Dissertation.log
+rm -f Dissertation.lot
+rm -f Dissertation.out
+rm -f Dissertation.toc

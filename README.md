@@ -11,8 +11,8 @@ One liner version
 ```bash
 pdflatex Dissertation && bibtex Dissertation && pdflatex Dissertation && pdflatex Dissertation
 ```
-## do_after_changes.sh
-This is a handy little script that watches a directory for changes and when file changes it run a command.
+## [do_after_changes.sh]
+This is a handy little script written by [Eric Zhiqiang Ma] that watches a directory for changes and when file changes it run a command.
 ```bash
 ./do-after-change.sh "pdflatex DissertationTemplate && bibtex DissertationTemplate && pdflatex DissertationTemplate && pdflatex DissertationTemplate" *.tex *.sty
 ```
@@ -36,3 +36,6 @@ Updates:
 
 ### Dissertation-2016-03-25.pdf
 This version is a preliminary reading copy that the graduate college reviewed and had comments against.
+
+[do_after_changes.sh]: https://github.com/zma/usefulscripts/blob/master/script/event-driver-cmd/do-after-change.sh
+[Eric Zhiqiang Ma]:https://github.com/zma
