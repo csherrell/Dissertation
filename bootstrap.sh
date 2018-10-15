@@ -1,6 +1,6 @@
 # To use home Apt-Cacher NG server
-echo "Acquire::http::Proxy \"http://192.168.0.2:3142\";" | sudo tee /etc/apt/apt.conf.d/00proxy # do client side update of apt
-sudo apt-get update -q
+#echo "Acquire::http::Proxy \"http://192.168.0.2:3142\";" | sudo tee /etc/apt/apt.conf.d/00proxy # do client side update of apt
+#sudo apt-get update -q
 
 # Start Package Installation
 sudo apt-get -y upgrade
