@@ -1,8 +1,243 @@
-\ac{laas}\chapter{Background and Literature Review}
-\label{ch:background}
-\section{GPS Overview}
 \acresetall
-Chapter~\ref{chapter:introduction} introduced the \ac{laas}, which is based on \ac{gps} developed by the U.S. \ac{dod}.  \ac{gps} is a remarkable system for finding one's location and its success is largely due to the modest needs of the average user. Standard \ac{gps} accuracy is approximately 15 meters\citep[]{GPS_FOR_DUMMIES} and this level of accuracy is quite satisfactory for many applications, including land navigation, which is the primary consumer application for \ac{gps}. However, when \ac{gps} accuracy is discussed it is generally in terms of horizontal accuracy.  Vertical accuracy is seldom mentioned in the discussion of accuracy and most \ac{gps} manufacturers do not publish the vertical accuracy specification.  Due to this, a rule-of-thumb has developed that suggests that the vertical accuracy is only half as good as the horizontal accuracy.  So, if Standard \ac{gps} is accurate to within 15 meters in the horizontal, then it is considered accurate to about 30 meters in the vertical, which is unacceptable for aircraft landings. This is why \ac{laas} is indispensable for a \ac{gls}.  Many different factors affect the precision of \ac{gps} which will be explored during this overview of \ac{gps}.
+\chapter{Background and Literature Review}
+\label{ch:background}
+
+\section{\ac{gps} \& \ac{waas} Introduction}\label{gps-waas-introduction}
+
+The are numerous navigation aids supporting the national airways. Many
+are ground based but with the inception of \ac{gps} there is a transition to space based navigation. In regards to utilizing \ac{gps} and \ac{waas} for navigation there are questions that need to be answered as to the necessity of \ac{waas} and why \ac{gps} by itself is not sufficient for aircraft navigation.
+
+\begin{itemize}
+\tightlist
+\item
+  Why yet another navigation system?
+\item
+  What are the benefits over other ground based navigational aids?
+  \begin{itemize}
+  \tightlist
+    \item
+      \ac{ndb}
+    \item
+      \ac{dme}
+    \item
+      \ac{vor}
+    \item
+      \ac{ils}
+  \end{itemize}
+\item
+  What is \ac{waas}?
+\item
+  Why can \ac{gps} not be used on its own?
+\item
+  What does \ac{waas} do?
+\item
+  How does \ac{waas} work?
+\item
+  Where is \ac{waas} used?
+\item
+  Why use \ac{gps} and \ac{waas}?
+\end{itemize}
+
+\subsection{\ac{faa} Air Transportation System
+Modernization}\label{faa-air-transportation-system-modernization}
+
+The \ac{faa} has recognized the need to improve the Air Transportation System
+so that it is more efficient, more predictable, and able to handle more
+capacity while maintaining the highest safety standards and reducing
+environmental impacts. The \ac{faa}'s NextGen modernization initiative is
+geared toward moving away from ground-based to satellite-enabled
+technologies for navigation and surveillance systems and from analog to
+digital systems for communication. While \ac{waas} is not a NextGen program,
+it is one of the foundational pillars upon which satellite enabled
+technologies are built.
+
+\subsection{Benefits of the Wide Area Augmentation
+System}\label{benefits-of-the-wide-area-augmentation-system}
+
+\subsubsection{Primary Means of
+Navigation}\label{primary-means-of-navigation}
+
+\ac{waas} is a critical component of the modernization's effort to enable the
+aviation industry's use of space-based navigational aids as a primary
+means of navigation, including: takeoff, en-route, approach and landing.
+
+\subsubsection{More Direct Routes}\label{more-direct-routes}
+
+Space-based navigational aids allows more direct routes to be utilized
+over ground based navigational aids. It is not restricted by location of
+ground-based equipment or line of sight as with some ground base
+equipment. For example, utilizing \ac{vor}, which is a ground-based
+navigational aid, is equivalent to navigating along a highway in the
+sky. Using a \ac{vor} network, aircraft fly from one \ac{vor} to another which may
+not be the most direct path. Utilizing \ac{gps} and \ac{waas} aircraft can fly
+direct routes from their departure point to arrival point.
+
+\subsubsection{Approach with Vertical Guidance
+Capability}\label{approach-with-vertical-guidance-capability}
+
+Additionally \ac{waas} approaches with
+vertical guidance capability can be utilized at many airports for
+landing. The number of airports that utilize \ac{waas} approaches has now exceeded that of airports using the
+\ac{ils} which is another ground-based aid for landing
+aircraft. The advantage of using \ac{waas} approaches as opposed to
+\ac{ils} approaches is that \ac{waas} approaches do
+not require ground-based equipment at the destination runways. The
+infrastructure for an \ac{ils} requires antenna
+arrays at the far end of the runway along with middle and outer markers
+located along an established line-of-sight route to a destination
+runway. The middle marker is 3000 to 6000 feet from the runway and the
+outer marker is 4 to 7 miles. This is just for a single runway end. If
+aircraft need to land from the opposite runway end all of this equipment
+is duplicated and mirrored. The \ac{ils} infrastructure can be costly and
+problematic and a full complement of equipment must be installed for
+each runway end. Adding to the cost, an \ac{ils} needs its antennas and
+markers routinely calibrated. It is an expensive installation, serves
+only one runway end and requires ongoing calibration for each
+installation.
+
+\href{https://en.wikipedia.org/wiki/Marker_beacon}{ILS Marker Beacon}
+{[}Link: NextGen Frequently Asked Questions{]}{[}1{]}\\
+{[}Link: Performance Success Stories New WAAS Coverage Clears the Way
+for New Access to Airports{]}{[}2{]}
+
+Another deficiency is that it can just land aircraft, but it cannot
+provide guidance for departures, missed approaches or any other
+navigational service. If a missed approach is required the \ac{ils} cannot aid the aircraft on its outbound route. With
+\ac{waas} a missed approach route can be defined. This is useful in areas
+like Kodiak Alaska where the approach leads directly into the base of
+Barometer Mountain; if a missed approach is required the pilot has to
+bank hard left between the valley created by Barometer Mountain and Old
+Women's Mountain. With the \ac{ils} or other
+ground-based navigational aids rugged or mountainous terrain can make
+line-of-sight systems unachievable. Space based navigation can have
+issues in areas like urban canyons, but for aviation applications, space
+based navigation has few impediments.
+
+\href{https://www.google.com/maps/@57.7483115,-152.5265434,13z/data=!4m3!11m2!2s1o5YgbCjAjyBntt5HWecW-6ByCvg!3e3!5m1!1e4}{Kodiak
+Alask Map}
+
+Another benefit of \ac{waas} is that the ground-based infrastructure does not
+have to be expanded to expand the capabilities of \ac{waas}. More approaches
+can be added by surveying the runway ends and approach vector utilizing
+\ac{gps} waypoints. The application is separate from the infrastructure. Just
+as in \ac{gps} for vehicle navigation; \ac{gps} is providing positioning and
+timing services and the applications of those services are ever
+expanding.
+
+\subsubsection{Decommission of Older, Expensive Ground-Based Navigation
+Equipment}\label{decommission-of-older-expensive-ground-based-navigation-equipment}
+
+As satellite navigation systems become the primary means of navigation
+and supplants those capabilities of older ground-based navigational aids
+those aids can be decommissioned. As more approaches are defined more
+\acp{ils} can be the decommissioned. As direct en-route capabilities are
+established the \ac{ndb}, \ac{dme} and \ac{vor} systems can also be decommissioned.
+
+\href{https://www.uasc.com/docs/default-source/documents/universalflyer/uasc_universalflyer_20122q.pdf?sfvrsn=e717985c_2}{FAA
+Announces Plan for Reduction in VOR and ILS in Favor of WAAS}
+
+\subsubsection{Simplified Avionics}\label{simplified-avionics}
+
+With the implementation of \ac{waas} and \ac{laas}, as currently planned by the \ac{gps} Product Team, a substantial reduction in the user avionics equipment cost can be realized because of the reduction in the proliferation of navigational devices. A single device can serve all phases of flight.
+
+\href{https://www.faa.gov/about/office_org/headquarters_offices/ato/service_units/techops/navservices/gnss/library/satnav/media/SatNavNews_Summer_2017.pdf}{The
+Sum of All Performance-Based Navigation Procedures}
+
+\subsubsection{Increased Capacity}\label{increased-capacity}
+
+\ac{waas} enabled receivers provide a highly accurate \ac{gps} position solution,
+so an aircraft's position is known to a higher fidelity than has
+previously been available. This, along with other technologies being
+pursued by the \ac{faa}, will offer opportunities to reduce separation
+standards. This reduction will be an incremental process based on
+analysis of the evolving capabilities. Potential reductions include
+non-radar separations in en route airspace and terminal separations due
+to smaller obstacle clearance areas and protected airspace. Reduced
+separation standards will directly translate into increased system
+capacity that can safely fly in a particular volume of airspace,
+benefiting the aviation user community.
+
+\href{https://www.faa.gov/about/office_org/headquarters_offices/ato/service_units/techops/navservices/gnss/library/satnav/media/SatNavNews_Spring2014_final_web.pdf}{WAAS
+Benefits Driving Equipage}
+
+\subsubsection{Resiliency}\label{resiliency}
+
+\ac{waas} does require a ground-based equipment infrastructure, but that
+infrastructure is highly resilient and redundant and \ac{waas} enabled
+applications can be implemented with no need to expand \ac{waas}
+ground-based equipment. It has a dual ring active/active network along
+with active standby and backup equipment. If an outage happens with any
+one piece of \ac{waas} equipment it can be placed in standby mode until such
+time as it is appropriate to send maintenance personnel to work on it.
+This is different from the \ac{ils} or \ac{vor}
+systems, where if that ground-based navigational aid has a malfunction,
+that service is rendered unavailable until the repairs are completed.
+Depending on the criticality of the system, \ac{faa} maintainers may need to
+be out in the field in adverse weather conditions to restore service.
+Some equipment locations, like Kotzebue, Alaska, are inhospitable most
+of the year, so it makes it very precarious for maintainers to get out
+to those facilities to restore equipment and services. For \ac{waas}, a loss
+of a subsystem does not mean a loss of service. Though it is not
+optimal, with the redundancy build into \ac{waas} ground-based equipment
+infrastructure it can run in a degraded state with no system impact
+until conditions are suitable for the restoration.
+
+\subsection{\ac{gps} Overview}\label{gps-overview}
+
+\ac{waas} is a space-based differential \ac{gps} system. It is used to detect and
+correct \ac{gps} errors, monitor and correct for ionospheric delay and also
+provides additional ranging sources from three GEO satellites for
+improved availability of space based navigation services. It augments
+\ac{gps} and improves accuracy, integrity, and availability. At its core \ac{waas}
+is a real-time \ac{gps} sensor network. To understand why \ac{gps} can't be used
+by itself, how \ac{gps} operates needs to covered. \ac{gps} works by determining
+the range from the \ac{gps} satellite to the user receiver. With one \ac{gps}
+satellite the user knows that he is on the sphere from the \ac{gps} satellite
+to the receiver. The user can be located anywhere on the surface of the
+sphere created by the range of the satellite to the user receiver.
+Introducing another \ac{gps} satellite, the user can now be isolated to the
+intersection of two spheres which is a circle. With a third satellite
+the user is at the intersection of three spheres which is two points.
+\ac{gps} assumes an earth centered, earth fixed,
+x-y-z 3D Cartesian coordinate system. Any location in this 3D space
+requires no more than 3 components to be completely identified. So, even
+though the intersection of 3 spheres yields two different points, the
+point located outside the earth's atmosphere is rendered useless by the
+earth centered earth fixed reference system. One point will be within
+Earth's atmosphere with an acceptable rate of velocity while the other
+point will be in space traveling at a high velocity.
+
+If the user measurements were perfect then three satellites would be
+sufficient to determine the user's location, but to take near perfect
+measurements would require the use of a highly stable atomic or optical
+clock. These clocks are large, very expensive and require considerable
+power, so the use of these types of clocks is impractical. Most \ac{gps}
+receivers utilize a quartz crystal oscillator for timing. This
+oscillator is small, cheap and low power but also very inaccurate, but,
+as it turns out, if three perfect measurements can locate a point in
+3-dimensional space, then four imperfect measurements can do the same
+thing. \ac{gps} utilizes a fourth satellite to solve for the user's clock,
+synchronizing the receiver clock with \ac{gps} time. Since any offset from
+\ac{gps} universal time will affect all of the measurements, the receiver
+looks for a single correction factor that can be subtract from all its
+timing measurements that would cause them all to intersect at a single
+point. That correction brings the receiver's clock back into sync with
+\ac{gps} time. The fourth satellite helps calculate the timing correction and
+in turn a location correction and selects one of the remaining two
+points as the position. The fourth satellite allows for the solving of a
+linear set of equations for x, y, z, and t simultaneously. Four
+satellites are required for (x,y,z,t) but in normal operation users are
+tracking more than four satellites; typically around 6 to 8. This sets
+up an overdetermined system of equations and a least-squares algorithm
+is used to determine the minimum error position solution. An added
+benefit is that every \ac{gps} receiver essentially has atomic-accuracy.
+
+{[}Link: Getting Perfect Timing Using \ac{gps} for Timing{]}{[}3{]}\\
+{[}Link: Trilateration algorithm for n amount of points{]}{[}4{]}
+
+\section{\ac{gps} Overview}
+
+The \ac{gps} is a remarkable system for finding one's location and its success is largely due to the modest needs of the average user. Standard \ac{gps} accuracy is approximately 15 meters\citep[]{GPS_FOR_DUMMIES} and this level of accuracy is quite satisfactory for many applications, including land navigation, which is the primary consumer application for \ac{gps}. However, when \ac{gps} accuracy is discussed it is generally in terms of horizontal accuracy.  Vertical accuracy is seldom mentioned in the discussion of accuracy and most \ac{gps} manufacturers do not publish the vertical accuracy specification.  Due to this, a rule-of-thumb has developed that suggests that the vertical accuracy is only half as good as the horizontal accuracy.  So, if Standard \ac{gps} is accurate to within 15 meters in the horizontal, then it is considered accurate to about 30 meters in the vertical, which is unacceptable for aircraft landings. This is why \ac{laas} is indispensable for a \ac{gls}.  Many different factors affect the precision of \ac{gps} which will be explored during this overview of \ac{gps}.
 
 \ac{gps} is comprised of 24 well placed satellites. The satellites orbit the earth in 6 orbital planes that are at a 55$^o$ inclination with 4 satellites per plane such that at least 4 satellites will be above the horizon at any given moment. This allows users the ability to use the system 24 hours a day anywhere on the planet. These satellites are not geo-orbital, but are at a \ac{meo} and orbit the earth twice a sidereal day with a speed of 3.9km per second.  The basic principal of the \ac{gps} system is quite simple.  A satellite orbits the earth at about 12,600 miles shown in Figure~\ref{fig:GPS_Basics_1}. The satellite acts as a reference point with a known distance which is called its \textit{range}.  How this range is known will be discussed later, but for now the user receiver knows one thing, that it lies on a sphere centered at the satellite with a known radius.
 
@@ -86,7 +321,7 @@ One of the first systems developed actually used the acronym \ac{dgps}, but some
 	\label{fig:FAA_WAAS}
 \end{figure}
 
-Most of the \ac{dgps} systems developed had a very specific function or operated in such a localized area that it precluded widespread use. The \ac{faa} wanted to capitalize on the benefits of \ac{dgps} while promoting a broad coverage area. To that end they designed the \ac{waas}, as shown in Figure~\ref{fig:FAA_WAAS}, established reference points throughout the contiguous United States. These fixed reference points were used to establish pseudorange corrections for most of North America.  The \ac{waas} corrections are then sent to a geo-orbital satellite and broadcast to \ac{waas}-enabled \ac{gps} receivers.  \ac{waas} improved the accuracy of \ac{gps} to less than 2 meters in the horizontal and less than 3 meters in the vertical. This was a significant enhancement to \ac{gps}; an improved \ac{gps} position solution free for the end user.  \ac{gps} manufacturers adopted this readily and now \ac{waas}-enabled \ac{gps} receivers are commonplace. A major shortcoming with \ac{waas} is its confinement to North America.  Additional Reference Receivers are being installed in Alaska and Mexico, but this is still a United States / North America locale. Large air carriers need \ac{gps} augmentation internationally. Furthermore, \ac{waas} accuracy is not as accurate as some other \ac{dgps} systems due to its broad coverage area.  Because of this the \ac{faa} does not consider its accuracy and integrity acceptable for instrument landings beyond CAT I.
+Most of the \ac{dgps} systems developed had a very specific function or operated in such a localized area that it precluded widespread use. The \ac{faa} wanted to capitalize on the benefits of \ac{dgps} while promoting a broad coverage area. To that end they designed \ac{waas}, as shown in Figure~\ref{fig:FAA_WAAS}, established reference points throughout the contiguous United States. These fixed reference points were used to establish pseudorange corrections for most of North America.  \ac{waas} corrections are then sent to a geo-orbital satellite and broadcast to \ac{waas}-enabled \ac{gps} receivers.  \ac{waas} improved the accuracy of \ac{gps} to less than 2 meters in the horizontal and less than 3 meters in the vertical. This was a significant enhancement to \ac{gps}; an improved \ac{gps} position solution free for the end user.  \ac{gps} manufacturers adopted this readily and now \ac{waas}-enabled \ac{gps} receivers are commonplace. A major shortcoming with \ac{waas} is its confinement to North America.  Additional Reference Receivers are being installed in Alaska and Mexico, but this is still a United States / North America locale. Large air carriers need \ac{gps} augmentation internationally. Furthermore, \ac{waas} accuracy is not as accurate as some other \ac{dgps} systems due to its broad coverage area.  Because of this the \ac{faa} does not consider its accuracy and integrity acceptable for instrument landings beyond CAT I.
 
 \begin{figure}
 	\centering
@@ -97,10 +332,243 @@ Most of the \ac{dgps} systems developed had a very specific function or operated
 	\label{fig:FAA_LAAS}
 \end{figure}
 
-The \ac{laas} was initiated by the \ac{faa} to provide an accurate real time differential \ac{gps} solution . The \ac{laas} concept follows that of \ac{waas}, but the reference receivers are generally located within the airport environment as can be seen in Figure~\ref{fig:FAA_LAAS}.  Further, the differential \ac{gps} corrections are only usable within the VDB broadcast range, which is about 20 to 30 miles.  By limiting the operating region \ac{laas} is able to deliver accuracy under 1 meter in both the horizontal and vertical axis\cite[]{FAA_LAAS}. A further benefit is that \ac{laas} is only dependent on the \ac{gps} fleet; therefore it can be used anywhere in the world.  The \ac{faa} formalized the interfaces and many of the algorithms that should be used in a LGF. Components of a software architecture for a \ac{laas} will be examined in the remainder of this thesis, including the host architecture, message formats, and message broadcasting.
+\subsection{Why can't you use \ac{gps} by
+itself?}\label{why-cant-you-use-gps-by-itself}
+
+\ac{gps} has many errors associated with it and due to these errors the \ac{gps}
+signal does not meet the accuracy, integrity, availability, and
+continuity requirements critical to safety of flight. Clock errors,
+ephemeris errors, errors in the troposphere, errors in the ionosphere
+and multipath errors each cumulatively reduce \ac{gps} accuracy. \ac{waas} is an enhancement to \ac{gps} which monitors
+and detects these associated errors and provides the necessary
+corrections for meeting safety-of-life flight requirements. The purpose
+of \ac{waas} is to monitor the \ac{gps} constellation and detect and correct for
+errors when possible. If corrections are not possible \ac{waas} will alert
+aviation users when \ac{gps} services cannot be used; the most notable being
+ionospheric storm events where changes in the ionosphere are changing
+too rapidly for the \ac{waas} ionoshperic model to adapt. \ac{waas} is able to
+detect errors by utilizing a robust ground-based geographically diverse
+sensor network. There are 38 \ac{waas} reference stations dispersed
+throughout Alaska, Canada, continental US, Mexico and Hawaii. Each
+reference station has three \ac{gps} receivers who's location coordinates are
+precisely surveyed. Errors in the \ac{gps} signal can be detected and these
+errors are grouped into two different classes; the \ac{udre} and the Grid Ionospheric Vertical Error. One is a per \ac{gps}
+satellite based correction and the other is a geographical based
+correction to account for the delay of the \ac{gps} signal through the
+ionosphere. How this works for the end user is that their avionics
+receiver calculates a protection level. If their protection level is
+within the alert limits specified in the \ac{waas} \ac{mops} then \ac{waas}
+services available for them and they can utilize \ac{waas} corrections to
+increase their accuracy. If however, they calculate a protection level
+that is outside the alert limit then \ac{waas} is unavailable for them and
+they can not use the \ac{waas} service. There exist a case that a protection
+level is calculated and it is within the alert limit but the true
+position of the aircraft is outside of those boundaries. This is the
+situation where the user determined they are safe when they are not.
+This is called Hazardously Misleading Information (HMI). This is an area
+in which National Airways System Engineering spends considerable time
+evaluating to ensure users are protected.
+
+Along with the user clock error there are other \ac{gps} error sources that
+affect the utilization of \ac{gps}. There could be errors with the clock
+onboard the \ac{gps} satellite itself. There is also error in the ephemeris
+message. The ephemeris is a mathematical models of the motion of the
+orbit of a satellite. This orbit model is provided to the user and any
+errors in the model will add to a user's position error. Temperature,
+pressure and humidity in the troposphere, the lowest layer of the
+Earth's atmosphere, can also affect a \ac{gps} signal's propagation. A
+significant source of propagation delay is the ionosphere. The
+ionoshpere is the ionized part of Earth's upper atmosphere and can
+contribute anywhere from 10 to 30 meters of error. The last source of
+error is multipath. Multipath is caused when a signal is reflected from
+surfaces near the receiver's antenna, such as buildings, and the
+reflections are mistaken for the primary signal. The reflected signal
+adds additional propagation delay over the true signal, and in turn,
+additional user error.
+
+\ac{waas} has mitigations and corrections for each type of error. First, \ac{waas}
+mitigates the user clock error by using cesium atomic clocks. This is a
+highly stable and accurate time source that disciplines the clock of the
+\ac{gps} receiver used by the \ac{waas} reference station. It mitigates multipath
+interference by using a highly specialized multipath limiting antenna.
+\ac{waas} has an orbit determination filter to minimize the ephemeris errors
+of \ac{gps} and GEO satellites. \ac{waas} also utilizes a Kriging model for the
+ionosphere and provides ionospheric corrections for all of North
+America. By mitigating the error sources in the acquisition of the \ac{gps}
+measurement data, \ac{waas} is able to detect \ac{gps} errors and provide corrects
+for those errors to users to increase their accuracy.
+
+\subsection{What is \ac{waas}}\label{what-is-the-wide-area-augmentation-system-waas}
+
+\ac{waas} is a space-based differential
+\ac{gps} system. It detects and corrects \ac{gps} errors, monitors and corrects
+for ionospheric delay and provides additional ranging sources for
+improved availability of the navigational service. It augments \ac{gps} and
+improves its accuracy, integrity and availability. At its core \ac{waas} is a real-time sensor network and the
+sensor is a \ac{gps} antenna tracking all \ac{gps} satellites in view of that
+antenna.
+
+\subsection{What is the purpose of
+\ac{waas}?}\label{what-is-the-purpose-of-waas}
+
+\ac{waas} is designed to protect users from error sources and other threats
+inherent in using \ac{gps}. It does this by broadcasting a \ac{udre}, a \ac{give} and \ac{gps}
+health information to the user. \ac{waas} has predefined alert limits fixed
+by specification. The aircraft's \ac{waas} enabled avionics will calculate
+its \ac{gps} position while applying the \acp{wum} which have the
+\ac{udre} and the \ac{give} values. The avionics receivers use these values to
+calculate a protection level based on the algorithm specified in the
+\ac{waas} \ac{mops}. If its protection level is within the alert limits then \ac{waas}
+is available for that user. If it calculates the protection level and it
+is beyond the alert limit then \ac{waas} is not available for that user. If
+the protection level cylinder becomes too small and does not enclose the
+true position of the aircraft this is called hazardously misleading
+information. It is a scenario in which the calculated protection level
+misinforms the user that the system is available for them to use when it
+is not.
+
+\subsection{How does \ac{waas} work?}\label{how-does-waas-work}
+
+\subsubsection{\ac{wrs}}\label{waas-reference-stations}
+
+The \ac{gps} satellites broadcast their ranging signal and message data down
+to earth and it is collected at a 1Hz rate by a network of \ac{wrs}. There are 38 reference stations that are
+geographically diverse across North and Central America including
+Alaska, Canada, Continental US, Mexico and Hawaii. Each reference
+station has three threads denoted as thread A, B and C, so 114
+individual threads. The A and B threads of each reference station are
+primarily utilized and the C thread is an active standby. A \ac{wrs} can
+withstand an outage from any one thread. In fact \ac{waas} can withstand the
+outage of one or more complete reference stations as long as they are
+not in close geographical proximity to on another. If multiple reference
+stations are out of service in a local area this will impact the
+ionospheric model and coverage will be reduced or lost in that area. \ac{gps}
+measurement data from every \ac{gps} satellites being tracked by all 114
+threads is put onto a high availability terrestrial communications
+network. The network connects the reference stations to the \ac{wms}.
+
+\subsubsection{Wide-Area Master Station (WMS)}\label{waas-master-stations}
+
+There are three \ac{wms} that pull in the \ac{wrs} data and
+calculate the differential \ac{gps} corrections, ionospheric correction and
+validates the \ac{gps} satellites are operating in a healthy normal mode. If
+a satellite is not usable \ac{waas} will send a \ac{dnu} alert
+message out to the users. These master stations are what calculate all
+the integrity parameters and is the computational center point of the
+system. The software for all the integrity monitors is running on a
+real-time operating system and is maintained using the guidelines
+specified in DO-178B, Software Considerations in Airborne Systems and
+Equipment Certification up to a Software Level of B/Hazardous. Once all
+the integrity parameters, the corrections and health information are
+validated and calculated the information is formulated into a series of
+\acp{wum} and then put on the terrestrial communications
+network and sent to the \ac{gus}.
+
+\subsubsection{GEO Uplink Subsystem}\label{geo-uplink-subsystem}
+
+\ac{waas} has three GEO satellites. Each satellite has two uplink stations
+denoted as primary and backup. The denotation for each system is based
+on which station is radiating to the satellite. The \ac{gus}
+that is radiating to the satellite is designated as primary and the
+other, which is radiating into a dummy load, is denoted as backup. If
+for some reason the primary has a failure it will automatically switch
+to the backup and the backup will become primary. When the faulted GEO
+Uplink Subsystem is restored to service it will be brought up into
+backup mode. It will stay in backup mode until the primary faults and
+automatically switches over back to primary or the \ac{waas} operator issues
+a command to initiate a manual GUS switch over. This is done for
+maintenance activities at GUS sites.
+
+The \ac{gus} sends the \ac{wum} through the \ac{rfu} which broadcast it to the \ac{waas} satellite in
+geosynchronous orbit. The \ac{waas} GEO satellite broadcasts the differential
+and ionospheric corrections as well as \ac{gps} satellite heath back down to
+the aviation users. The avionic equipment applies the \ac{waas} corrections
+to increase the accuracy of its \ac{gps} position solution. \ac{waas} provides
+another service called GEO Ranging. The three \ac{waas} GEO satellites
+provide a ranging signal that functions like a \ac{gps} signal. These
+additional ranging sources help fill in the usable satellite
+constellation and also provides better satellite geometry. This
+increases the availability of using space based navigation services
+because the \ac{gps} constellation has now been augmented with three
+additional satellites. If a \ac{gps} satellite is taken out of service the
+three \ac{faa} GEO ranging satellites will help fill in the constellation.
+The geometry of the satellite constellation has values associated with
+it called the dilution of precision. The more dispersed the
+constellation the better its dilution of precision. The more tightly
+grouped the satellite constellation is the worse the dilution of
+precision. The better dilution of precision value the better the
+position solution will be.
+
+{[}Link: Dilution of Precision{]}{[}5{]}
+
+\subsubsection{Operation and Maintenance
+System}\label{operation-and-maintenance-system}
+
+The \ac{waas} system has two operation and maintenance systems located in
+Warrenton, VA and the other in San Diego, CA. This is where the \ac{waas}
+operators monitor and control the \ac{waas} system.
+
+\subsection{Where is \ac{waas} used?}\label{where-is-waas-used}
+
+\ac{waas} currently uses three geosynchronous satellites with a footprint
+that covers the entire Western Hemisphere. Coverage over the northern
+slope of Alaska is particularly valuable to the \ac{faa} due to Alaska having
+many general aviation users that utilize \ac{waas}. As of May 24, 2018, there
+are 3,909 \ac{waas} Localizer Performance
+with Vertical guidance (LPV) approach procedures serving 1,900 airports.
+1,138 of these airports are Non-\ac{ils} airports. Currently, there are also
+661 Localizer Performance (LP) approach procedures in the U.S. serving
+495 airports.
+
+{[}Link: Satellite Navigation - GPS/WAAS Approaches{]}{[}6{]}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Items to look into:}\label{items-to-look-into}
+
+One significant improvement \ac{waas} provides is the elimination of
+errors for hot and cold temperatures that previously affected baro type
+vertical navigation systems. \ac{waas} equipped receivers will automatically
+notify the pilot of the most accurate level of service provided for that
+given receiver, signal, and approach.
+
+One significant difference between satellite based navigation as opposed
+to ground based is that distances: Are given Along Track Distance (ATD)
+during the final approach segment.
+
+One primary difference between an RNAV approach with \ac{gps} and \ac{waas} is at
+the missed approach point \ac{gps} suspends while \ac{waas} sequences to the
+missed approach procedure.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+The \ac{faa} will seldom, if ever, install a new \ac{ils}, opting instead for PBN
+landing procedures, which save money. Further costs saving are gained by
+reducing the existing ground-based navigation infrastructure, which
+remains as a backup in case of disrupted satellite service. {[}1{]}:
+https://www.faa.gov/nextgen/faqs/ {[}2{]}:
+https://www.faa.gov/nextgen/snapshots/stories/?slide=5 {[}3{]}:
+http://www.trimble.com/gps\_tutorial/howgps-timing2.aspx {[}4{]}:
+https://gis.stackexchange.com/questions/40660/trilateration-algorithm-for-n-amount-of-points/40678\#40678
+{[}5{]}:
+https://en.wikipedia.org/wiki/Dilution\_of\_precision\_(navigation)
+{[}6{]}:
+https://www.faa.gov/about/office\_org/headquarters\_offices/ato/service\_units/techops/navservices/gnss/approaches/
+
+https://www.faa.gov/about/office\_org/headquarters\_offices/ato/service\_units/techops/navservices/gnss/faq/gps/?iframe=true\&width=100\%\&height=100\%
+Q. Is the basic \ac{gps} signal sufficient to meet all the needs of civil aviation?
+
+A. This is not a simple yes/no answer. The answer is that it depends on
+the service requirements of each user or aviation authority. For many
+countries, \ac{gps} supplies a better capability than the existing
+ground-based systems or lack thereof. Yet for other countries with large
+infrastructures, the \ac{gps} signal does not meet the accuracy, integrity,
+availability, and continuity requirements critical to safety of flight.
+Enhancements to the \ac{gps} such as \ac{waas} and \ac{gbas} provide the necessary corrections for meeting safety-of-life flight requirements.
+
 \begin{sidewaystable}[htbp]
 \centering
-\caption{WAAS Sites}
+\caption{\ac{waas} Sites}
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{ l l l l l}
 \hline
@@ -151,3 +619,8 @@ Hampton, Georgia                         & KZTL     & 33.379688402°N 084.296725
 }
 \label{tab:WAAS_SITES}
 \end{sidewaystable}
+
+
+
+
+\ac{laas} was initiated by the \ac{faa} to provide an accurate real time differential \ac{gps} solution . The \ac{laas} concept follows that of \ac{waas}, but the reference receivers are generally located within the airport environment as can be seen in Figure~\ref{fig:FAA_LAAS}.  Further, the differential \ac{gps} corrections are only usable within the VDB broadcast range, which is about 20 to 30 miles.  By limiting the operating region \ac{laas} is able to deliver accuracy under 1 meter in both the horizontal and vertical axis\cite[]{FAA_LAAS}. A further benefit is that \ac{laas} is only dependent on the \ac{gps} fleet; therefore it can be used anywhere in the world.  The \ac{faa} formalized the interfaces and many of the algorithms that should be used in a \ac{lgf}. Components of a software architecture for a \ac{laas} will be examined in the remainder of this dissertation, including the host architecture, message formats, and message broadcasting.
